@@ -174,6 +174,10 @@ module Moonshine::Manifest::Rails::Rails
       symlink_dirs = configuration[:app_symlinks].map { |d| "#{configuration[:deploy_to]}/shared/public/#{d}" }
       dirs += symlink_dirs
     end
+    if configuration[:root_symlinks].is_a?(Array)
+      symlink_dirs = configuration[:root_symlinks].map { |d| "#{configuration[:deploy_to]}/shared/#{d}" }
+      dirs += symlink_dirs
+    end
     dirs.each do |dir|
       file dir,
       :ensure => :directory,

@@ -30,6 +30,7 @@ module Moonshine
         end
         set :moonshine_manifest, 'application_manifest'
         set :app_symlinks, []
+        set :root_symlinks, []
         set :ruby, :ree
 
         # know the path to rails logs
@@ -158,6 +159,9 @@ module Moonshine
             task :update, :roles => [:app, :web] do
               fetch(:app_symlinks).each do |link|
                 run "ln -nfs #{shared_path}/public/#{link} #{latest_release}/public/#{link}"
+              end
+              fetch(:root_symlinks).each do |link|
+                run "ln -nfs #{shared_path}/#{link} #{latest_release}/#{link}"
               end
             end
           end
